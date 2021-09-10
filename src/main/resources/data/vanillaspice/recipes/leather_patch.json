@@ -17,6 +17,7 @@
         }
     },
     "result": {
-        "item": "vanillaspice:leather_patch"
+        "item": "vanillaspice:leather_patch",
+        "count": 2
     }
 }

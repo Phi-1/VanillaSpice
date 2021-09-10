@@ -37,4 +37,5 @@ public class PlayerStatsProvider implements ICapabilitySerializable<CompoundNBT>
             CapabilityPlayerStats.PLAYER_STATS_CAPABILITY.readNBT(playerStats, null, nbt);
         }
     }
+
 }

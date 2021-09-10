@@ -1,5 +1,13 @@
 {
-    "item.vanillaspice.leather_patch": "Leather Patch",
-    "item.vanillaspice.iron_plate": "Iron Plate",
-    "item.vanillaspice.crystalline_guard": "Crystalline Guard"
+    "item.vanillaspice.leather_patch": "Leather patch",
+    "item.vanillaspice.iron_plate": "Iron plate",
+    "item.vanillaspice.crystalline_guard": "Crystalline guard",
+    "item.vanillaspice.stone_ring": "Stone ring",
+    "item.vanillaspice.bone_ring": "Ring of Bone",
+    "item.vanillaspice.flesh_ring": "Ring of Flesh",
+    "item.vanillaspice.dust_ring": "Ring of Dust",
+    "item.vanillaspice.ichor_ring": "Ring of Ichor",
+    "item.vanillaspice.vision_flame": "Vision of Flame",
+    "item.vanillaspice.vision_gale": "Vision of Gale",
+    "item.vanillaspice.vision_star": "Vision of Star"
 }

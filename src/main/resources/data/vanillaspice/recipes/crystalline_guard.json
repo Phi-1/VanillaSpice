@@ -17,6 +17,7 @@
         }
     },
     "result": {
-        "item": "vanillaspice:crystalline_guard"
+        "item": "vanillaspice:crystalline_guard",
+        "count": 2
     }
 }

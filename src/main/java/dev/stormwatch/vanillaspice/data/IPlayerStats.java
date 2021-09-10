@@ -2,6 +2,15 @@ package dev.stormwatch.vanillaspice.data;
 
 public interface IPlayerStats {
 
+    int nextLevelThreshold(int currentLevel);
+    int nextMainLevelThreshold(int currentLevel);
+
+    boolean setMainXP(int XP);
+    int getMainXP();
+
+    void setMainLevel(int level);
+    int getMainLevel();
+
     boolean setMeleeXP(int XP);
     int getMeleeXP();
 

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFF",
+    "FRF",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "R": {
+      "item": "vanillaspice:stone_ring"
+    }
+  },
+  "result": {
+    "item": "vanillaspice:flesh_ring"
+  }
+}

@@ -19,10 +19,10 @@ public class CapabilityPlayerStats {
     public static Capability<IPlayerStats> PLAYER_STATS_CAPABILITY = null;
 
     public static void register() {
-        CapabilityManager.INSTANCE.register(IPlayerStats.class, new CStorage(), DefaultPlayerStats::new);
+        CapabilityManager.INSTANCE.register(IPlayerStats.class, new Storage(), DefaultPlayerStats::new);
     }
 
-    public static class CStorage implements Capability.IStorage<IPlayerStats> {
+    private static class Storage implements Capability.IStorage<IPlayerStats> {
 
         @Nullable
         @Override

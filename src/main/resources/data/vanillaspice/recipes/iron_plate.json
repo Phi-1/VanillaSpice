@@ -17,6 +17,7 @@
         }
     },
     "result": {
-        "item": "vanillaspice:iron_plate"
+        "item": "vanillaspice:iron_plate",
+        "count": 2
     }
 }

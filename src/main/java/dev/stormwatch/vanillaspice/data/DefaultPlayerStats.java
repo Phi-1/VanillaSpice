@@ -4,8 +4,8 @@ import java.lang.Math;
 
 public class DefaultPlayerStats implements IPlayerStats {
 
-    // Level formula: 2 * currentLevel^3 / 5
-    // One tier up every 10 levels, at max tiers level just keeps going past 10
+    private int mainXP;
+    private int mainLevel;
 
     private int meleeXP;
     private int archeryXP;
@@ -19,9 +19,33 @@ public class DefaultPlayerStats implements IPlayerStats {
     private int archeryTier;
     private int alchemyTier;
 
-    private int nextLevelThreshold(int currentLevel) {
-        double threshold = ((2 * Math.pow(currentLevel, 3)) / 5) + 10;
+    @Override
+    public int nextLevelThreshold(int currentLevel) {
+        double threshold = ((Math.cbrt((currentLevel-4)/0.002)+25)/0.25)*2;
         return Math.round((float) threshold);
+    }
+
+    @Override
+    public int nextMainLevelThreshold(int currentLevel) {
+        return 1;
+    }
+
+    @Override
+    public boolean setMainXP(int XP) {
+        return false;
+    }
+    @Override
+    public int getMainXP() {
+        return this.mainXP;
+    }
+
+    @Override
+    public void setMainLevel(int level) {
+
+    }
+    @Override
+    public int getMainLevel() {
+        return this.mainLevel;
     }
 
     @Override
