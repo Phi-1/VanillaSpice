@@ -2,7 +2,6 @@ package dev.stormwatch.vanillaspice.setup;
 
 import dev.stormwatch.vanillaspice.data.*;
 import dev.stormwatch.vanillaspice.events.*;
-import dev.stormwatch.vanillaspice.util.ChargesUtil;
 import dev.stormwatch.vanillaspice.util.XPUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -114,14 +113,5 @@ public class VSEventHandler {
             event.addListener(provider::invalidate);
         }
     }
-
-//    @SubscribeEvent
-//    public static void onItemAttachCapabilitiesEvent(AttachCapabilitiesEvent<ItemStack> event) {
-//        if (event.getObject().getItem() instanceof PotionItem) {
-//            PotionChargesProvider provider = new PotionChargesProvider();
-//            event.addCapability(new ResourceLocation(VanillaSpice.MOD_ID, "potioncharges"), provider);
-//            event.addListener(provider::invalidate);
-//        }
-//    }
 
 }

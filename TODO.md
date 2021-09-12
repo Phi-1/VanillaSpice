@@ -1,5 +1,4 @@
-- Add potion charge capability
-- Add tier effects to classes
+- Fix bug where picking up 1 potion from a brewing stand and then shiftclicking the other pots with the one pot on cursor doesnt add charges to the one pot after putting in inventory
 - make 2 more vision tiers with appopriately difficult recipes (gather stuff from all over the world to encourage exploration)
 - Perhaps figure out 1 or 2 new classes that don't have to do with combat
 - Make a main level stat that increases max hp and maybe some other stuff
