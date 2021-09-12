@@ -36,11 +36,7 @@ public class VanillaSpice
         // Mod setup stuff
         RegistryHandler.register();
         MinecraftForge.EVENT_BUS.register(VSEventHandler.class);
-
-        // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
 
