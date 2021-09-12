@@ -27,7 +27,6 @@ public class CapabilityPotionCharges {
         @Nullable
         @Override
         public INBT writeNBT(Capability<IPotionCharges> capability, IPotionCharges instance, Direction side) {
-            LOGGER.info("potion writeNBT");
             CompoundNBT tag = new CompoundNBT();
             tag.putInt("charges", instance.getCharges());
             return tag;
@@ -35,7 +34,6 @@ public class CapabilityPotionCharges {
 
         @Override
         public void readNBT(Capability<IPotionCharges> capability, IPotionCharges instance, Direction side, INBT nbt) {
-            LOGGER.info("potion readNBT");
             int charges = ((CompoundNBT) nbt).getInt("charges");
             instance.setCharges(charges);
         }

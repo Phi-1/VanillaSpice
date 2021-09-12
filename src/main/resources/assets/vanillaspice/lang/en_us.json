@@ -9,5 +9,6 @@
     "item.vanillaspice.ichor_ring": "Ring of Ichor",
     "item.vanillaspice.vision_flame": "Vision of Flame",
     "item.vanillaspice.vision_gale": "Vision of Gale",
-    "item.vanillaspice.vision_star": "Vision of Star"
+    "item.vanillaspice.vision_star": "Vision of Star",
+    "vanillaspice.tooltip.potioncharges": "Charges: %d"
 }

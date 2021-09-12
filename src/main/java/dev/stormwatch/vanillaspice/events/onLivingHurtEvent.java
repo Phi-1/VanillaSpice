@@ -1,6 +1,7 @@
 package dev.stormwatch.vanillaspice.events;
 
 import dev.stormwatch.vanillaspice.data.CapabilityMonsterLevel;
+import dev.stormwatch.vanillaspice.util.ModifierUtil;
 import dev.stormwatch.vanillaspice.util.XPUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -27,7 +28,7 @@ public class onLivingHurtEvent {
         Entity sourceEntity = source.getEntity();
         boolean negateDamage = false;
 
-        if (target instanceof MonsterEntity) {
+        if (target instanceof MonsterEntity && !target.level.isClientSide()) {
             target.getCapability(CapabilityMonsterLevel.MONSTER_LEVEL_CAPABILITY).ifPresent(h -> {
                 LOGGER.info(h.getLevel());
             });
@@ -35,6 +36,7 @@ public class onLivingHurtEvent {
 
         if (sourceEntity instanceof PlayerEntity && !sourceEntity.level.isClientSide()) {
             PlayerEntity player = (PlayerEntity) sourceEntity;
+            ModifierUtil.setArmor(player, 26);
 
 
             if (source.isProjectile()) {

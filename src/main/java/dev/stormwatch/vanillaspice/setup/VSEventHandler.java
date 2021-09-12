@@ -9,13 +9,14 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.brewing.PlayerBrewedPotionEvent;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,43 +39,12 @@ public class VSEventHandler {
     public static void onLootingLevelEvent(LootingLevelEvent event) { onLootingLevelEvent.event(event); }
     @SubscribeEvent
     public static void onLivingSpawnEvent(LivingSpawnEvent.SpecialSpawn event) { onLivingSpecialSpawnEvent.event(event); }
-
     @SubscribeEvent
-    public static void onPlayerBrewPotionEvent(PlayerBrewedPotionEvent event) {
-        // if player is t1+ alch add charges
-        PlayerEntity player = event.getPlayer();
-        ItemStack stack = event.getStack();
-        if (!player.level.isClientSide()) {
-            XPUtil.increaseAlchemyXP(player, 1, 3);
-
-            LOGGER.info(XPUtil.getAlchemyTier(player));
-            if (XPUtil.getAlchemyTier(player) >= 1) {
-                stack.getCapability(CapabilityPotionCharges.POTION_CHARGES_CAPABILITY).ifPresent(h -> {
-                    LOGGER.info("hello from inside the potion charge capability");
-                    h.setCharges(3);
-                    LOGGER.info(h.getCharges());
-                });
-                stack.getCapability(CapabilityPotionCharges.POTION_CHARGES_CAPABILITY).ifPresent(h -> {
-                    LOGGER.info("after removing pot from stand but v2");
-                    LOGGER.info(h.getCharges());
-                });
-            }
-        }
-    }
-
+    public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) { onPlayerTickEvent.event(event); }
     @SubscribeEvent
-    public static void onItemUseStartEvent(LivingEntityUseItemEvent.Start event) {
-        ItemStack stack = event.getItem();
-        LivingEntity entity = event.getEntityLiving();
-
-        if (stack.getItem() instanceof PotionItem) {
-            stack.getCapability(CapabilityPotionCharges.POTION_CHARGES_CAPABILITY).ifPresent(h -> {
-                LOGGER.info("start using potion");
-                LOGGER.info(h.getCharges());
-                // Even here charges read 0, the problem is in the setting/saving of the charges then
-            });
-        }
-    }
+    public static void onPlayerBrewPotionEvent(PlayerBrewedPotionEvent event) { onPlayerBrewPotionEvent.event(event); }
+    @SubscribeEvent
+    public static void onItemToolTipEvent(ItemTooltipEvent event) { onItemToolTipEvent.event(event); }
 
     @SubscribeEvent
     public static void onItemUseFinishEvent(LivingEntityUseItemEvent.Finish event) {
@@ -85,18 +55,18 @@ public class VSEventHandler {
             PlayerEntity player = (PlayerEntity) entity;
 
             if (stack.getItem() instanceof PotionItem) {
-                XPUtil.increaseAlchemyXP(player, 4, 8);
+                XPUtil.increaseAlchemyXP(player, 8, 16);
 
-                int charges = ChargesUtil.getCharges(stack);
-                LOGGER.info(charges);
+                CompoundNBT tag = stack.getTag();
+                int charges = 0;
+                if (tag != null) { charges = tag.getInt("vs_charges"); }
+                charges--;
                 if (charges > 0) {
-                    ChargesUtil.setCharges(stack, charges - 1);
-                    LOGGER.info(ChargesUtil.getCharges(stack));
+                    tag.putInt("vs_charges", charges);
+                    stack.setTag(tag);
                     event.setResultStack(stack);
                 }
             }
-            // check if potion has charges
-            // setResultStack() accordingly (either empty bottle (aka dont set it to anything cause thats default) or same potion with -1 stack)
         }
 
     }
@@ -145,13 +115,13 @@ public class VSEventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void onItemAttachCapabilitiesEvent(AttachCapabilitiesEvent<ItemStack> event) {
-        if (event.getObject().getItem() instanceof PotionItem) {
-            PotionChargesProvider provider = new PotionChargesProvider();
-            event.addCapability(new ResourceLocation(VanillaSpice.MOD_ID, "potioncharges"), provider);
-            event.addListener(provider::invalidate);
-        }
-    }
+//    @SubscribeEvent
+//    public static void onItemAttachCapabilitiesEvent(AttachCapabilitiesEvent<ItemStack> event) {
+//        if (event.getObject().getItem() instanceof PotionItem) {
+//            PotionChargesProvider provider = new PotionChargesProvider();
+//            event.addCapability(new ResourceLocation(VanillaSpice.MOD_ID, "potioncharges"), provider);
+//            event.addListener(provider::invalidate);
+//        }
+//    }
 
 }

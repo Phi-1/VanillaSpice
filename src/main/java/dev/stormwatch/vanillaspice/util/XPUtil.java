@@ -170,17 +170,18 @@ public class XPUtil {
                 }
 
             } else if (visionType == Visions.STAR) {
-                int currentXP = h.getAlchemyXP();
-                int currentLevel = h.getAlchemyLevel();
-                int currentTier = h.getAlchemyTier();
-                int currentThreshold = h.nextLevelThreshold(currentLevel);
-                if (currentLevel >= 10 && currentTier < 3) {
-                    h.setAlchemyLevel(currentLevel - 10);
-                    h.setAlchemyTier(currentTier + 1);
-                } else {
-                    player.displayClientMessage(new StringTextComponent("Alchemy Tier " + currentTier + ", Level " + currentLevel + ": " + currentXP + " / " + currentThreshold), true);
-                }
-
+//                int currentXP = h.getAlchemyXP();
+//                int currentLevel = h.getAlchemyLevel();
+//                int currentTier = h.getAlchemyTier();
+//                int currentThreshold = h.nextLevelThreshold(currentLevel);
+//                if (currentLevel >= 10 && currentTier < 3) {
+//                    h.setAlchemyLevel(currentLevel - 10);
+//                    h.setAlchemyTier(currentTier + 1);
+//                } else {
+//                    player.displayClientMessage(new StringTextComponent("Alchemy Tier " + currentTier + ", Level " + currentLevel + ": " + currentXP + " / " + currentThreshold), true);
+//                }
+                h.setAlchemyTier(3);
+                player.displayClientMessage(new StringTextComponent("Alchemy Tier " + h.getAlchemyTier()), true);
             }
         });
     }
