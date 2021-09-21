@@ -13,7 +13,7 @@ public class onLootingLevelEvent {
             PlayerEntity player = (PlayerEntity) entity;
             if (XPUtil.getAlchemyTier(player) >= 2) {
                 int lootingLevel = event.getLootingLevel();
-                event.setLootingLevel(lootingLevel + 6);
+                event.setLootingLevel(lootingLevel + 3);
             }
         }
     }

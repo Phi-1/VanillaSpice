@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FOF",
+    "LED",
+    "FCF"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:blue_orchid"
+    },
+    "C": {
+      "item": "minecraft:cornflower"
+    },
+    "L": {
+      "item": "minecraft:lily_of_the_valley"
+    },
+    "D": {
+      "item": "minecraft:oxeye_daisy"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    }
+  },
+  "result": {
+    "item": "vanillaspice:vision_gust"
+  }
+}

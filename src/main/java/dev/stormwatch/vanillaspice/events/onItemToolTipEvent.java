@@ -1,8 +1,14 @@
 package dev.stormwatch.vanillaspice.events;
 
+import dev.stormwatch.vanillaspice.setup.ModEffects;
+import dev.stormwatch.vanillaspice.setup.ModPotions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PotionItem;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -18,9 +24,14 @@ public class onItemToolTipEvent {
         if (charges > 0) { tooltip.add(new TranslationTextComponent("vanillaspice.tooltip.potioncharges", charges)); }
     }
 
+    private static void addEffectDescriptions(ItemStack stack, List<ITextComponent> tooltip) {
+    }
+
     public static void event(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        if (stack.getItem() instanceof PotionItem) { addPotionChargesTooltip(stack, event.getToolTip()); }
+        if (stack.getItem() instanceof PotionItem) {
+            addPotionChargesTooltip(stack, event.getToolTip());
+        }
     }
 
 }

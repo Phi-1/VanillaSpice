@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GGG",
+        "GBG",
+        "GGG"
+    ],
+    "key": {
+        "G": {
+            "item": "minecraft:gold_nugget"
+        },
+        "B": {
+            "item": "minecraft:beetroot"
+        }
+    },
+    "result": {
+        "item": "vanillaspice:golden_beetroot"
+    }
+}

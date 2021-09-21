@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ITI",
+    "ANA",
+    "ISI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "T": {
+      "item": "minecraft:totem_of_undying"
+    },
+	"A": {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+	"S": {
+	  "item": "minecraft:soul_lantern"
+	},
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "vanillaspice:vision_inferno"
+  }
+}

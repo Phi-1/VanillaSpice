@@ -1,28 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "FOF",
-    "LED",
-    "FCF"
+    "RPR",
+	"WEC",
+	"RPR"
   ],
   "key": {
-    "O": {
-      "item": "minecraft:blue_orchid"
+    "R": {
+      "item": "minecraft:rabbit_hide"
     },
-    "C": {
-      "item": "minecraft:cornflower"
+    "W": {
+      "item": "minecraft:warped_roots"
     },
-    "L": {
-      "item": "minecraft:lily_of_the_valley"
+	"C": {
+      "item": "minecraft:crimson_roots"
     },
-    "D": {
-      "item": "minecraft:oxeye_daisy"
-    },
-    "F": {
-      "item": "minecraft:feather"
+	"P": {
+      "item": "minecraft:phantom_membrane"
     },
     "E": {
-      "item": "minecraft:emerald"
+      "item": "minecraft:ender_eye"
     }
   },
   "result": {

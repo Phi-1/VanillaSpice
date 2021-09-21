@@ -5,6 +5,7 @@ import dev.stormwatch.vanillaspice.util.ModifierUtil;
 import dev.stormwatch.vanillaspice.util.XPUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -28,16 +29,9 @@ public class onLivingHurtEvent {
         Entity sourceEntity = source.getEntity();
         boolean negateDamage = false;
 
-        if (target instanceof MonsterEntity && !target.level.isClientSide()) {
-            target.getCapability(CapabilityMonsterLevel.MONSTER_LEVEL_CAPABILITY).ifPresent(h -> {
-                LOGGER.info(h.getLevel());
-            });
-        }
 
         if (sourceEntity instanceof PlayerEntity && !sourceEntity.level.isClientSide()) {
             PlayerEntity player = (PlayerEntity) sourceEntity;
-            ModifierUtil.setArmor(player, 26);
-
 
             if (source.isProjectile()) {
                 if (source.toString().toLowerCase().contains("trident")) {
@@ -70,7 +64,7 @@ public class onLivingHurtEvent {
                 XPUtil.increaseMeleeXP(player, 1, 5);
                 finalDamage += finalDamage * ((float)XPUtil.getMeleeLevel(player) / 75);
 
-                if (XPUtil.getMeleeTier(player) >= 1) {
+                if (XPUtil.getMeleeTier(player) >= 2) {
                     player.addEffect(new EffectInstance(Effects.REGENERATION, 60, 0));
                     player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
                 }
@@ -91,7 +85,7 @@ public class onLivingHurtEvent {
                 player.addEffect(new EffectInstance(Effects.JUMP, 40, 1));
 
                 if (meleeTier >= 3) {
-                    if ((player.getHealth() - finalDamage) <= 0 && ThreadLocalRandom.current().nextDouble() <= 0.33) {
+                    if ((player.getHealth() - finalDamage) <= 0 && ThreadLocalRandom.current().nextDouble() <= 0.5) {
                         negateDamage = true;
                         player.removeAllEffects();
                         player.setHealth(1);

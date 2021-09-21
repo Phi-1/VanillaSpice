@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EYE",
+	"WNW",
+	"EME"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:wither_rose"
+    },
+	"E": {
+      "item": "minecraft:emerald_ore"
+    },
+	"Y": {
+      "item": "minecraft:elytra"
+    },
+	"M": {
+      "item": "minecraft:mycelium"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "vanillaspice:vision_hurricane"
+  }
+}

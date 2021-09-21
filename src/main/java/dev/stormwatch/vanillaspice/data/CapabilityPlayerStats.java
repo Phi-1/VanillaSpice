@@ -28,6 +28,8 @@ public class CapabilityPlayerStats {
         @Override
         public INBT writeNBT(Capability<IPlayerStats> capability, IPlayerStats instance, Direction side) {
             CompoundNBT tag = new CompoundNBT();
+            tag.putLong("mainXP", instance.getMainXP());
+            tag.putInt("mainLevel", instance.getMainLevel());
             tag.putInt("meleeXP", instance.getMeleeXP());
             tag.putInt("archeryXP", instance.getArcheryXP());
             tag.putInt("alchemyXP", instance.getAlchemyXP());
@@ -42,6 +44,8 @@ public class CapabilityPlayerStats {
 
         @Override
         public void readNBT(Capability<IPlayerStats> capability, IPlayerStats instance, Direction side, INBT nbt) {
+            long mainXP = ((CompoundNBT) nbt).getLong("mainXP");
+            int mainLevel = ((CompoundNBT) nbt).getInt("mainLevel");
             int meleeXP = ((CompoundNBT) nbt).getInt("meleeXP");
             int archeryXP = ((CompoundNBT) nbt).getInt("archeryXP");
             int alchemyXP = ((CompoundNBT) nbt).getInt("alchemyXP");
@@ -51,6 +55,8 @@ public class CapabilityPlayerStats {
             int meleeTier = ((CompoundNBT) nbt).getInt("meleeTier");
             int archeryTier = ((CompoundNBT) nbt).getInt("archeryTier");
             int alchemyTier = ((CompoundNBT) nbt).getInt("alchemyTier");
+            instance.setMainXP(mainXP);
+            instance.setMainLevel(mainLevel);
             instance.setMeleeXP(meleeXP);
             instance.setArcheryXP(archeryXP);
             instance.setAlchemyXP(alchemyXP);

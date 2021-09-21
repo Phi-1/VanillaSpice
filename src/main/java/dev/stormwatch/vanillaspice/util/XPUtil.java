@@ -1,20 +1,27 @@
 package dev.stormwatch.vanillaspice.util;
 
 import dev.stormwatch.vanillaspice.data.CapabilityPlayerStats;
-import dev.stormwatch.vanillaspice.lib.Visions;
+import dev.stormwatch.vanillaspice.data.IPlayerStats;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class XPUtil {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static class XPStorage {
+        public long mainXP;
+        public int mainLevel;
+
         public int meleeXP;
         public int archeryXP;
         public int alchemyXP;
@@ -29,12 +36,14 @@ public class XPUtil {
     }
 
     // Contains the UUID of the player and their saved stats
-    private static Map<String, XPStorage> playerStats = new HashMap<String, XPStorage>();
+    private static final Map<String, XPStorage> playerStats = new HashMap<String, XPStorage>();
 
     // Called on player death to remedy stat reset after respawn
     public static void savePlayerStats(PlayerEntity player) {
         XPStorage storage = new XPStorage();
         player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).ifPresent(h -> {
+            storage.mainXP = h.getMainXP();
+            storage.mainLevel = h.getMainLevel();
             storage.meleeXP = h.getMeleeXP();
             storage.archeryXP = h.getArcheryXP();
             storage.alchemyXP = h.getAlchemyXP();
@@ -53,6 +62,8 @@ public class XPUtil {
         XPStorage storage = playerStats.get(player.getUUID().toString());
         if (storage == null) { return; }
         player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).ifPresent(h -> {
+            h.setMainXP(storage.mainXP);
+            h.setMainLevel(storage.mainLevel);
             h.setMeleeTier(storage.meleeTier);
             h.setArcheryTier(storage.archeryTier);
             h.setAlchemyTier(storage.alchemyTier);
@@ -63,6 +74,45 @@ public class XPUtil {
             h.setArcheryXP(storage.archeryXP);
             h.setAlchemyXP(storage.alchemyXP);
         });
+    }
+
+    public static void setPlayerAttributes(PlayerEntity player) {
+        int playerLevel = 0;
+        IPlayerStats cap = player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).orElse(null);
+        if (cap != null) { playerLevel = cap.getMainLevel(); }
+        ModifierUtil.setPlayerBaseHealth(player);
+        ModifierUtil.setMainLevelStats(player, playerLevel);
+    }
+
+    public static void increaseMainXP(PlayerEntity player, int mobLevel) {
+        int xpGain = 0;
+        int ring = (int) Math.ceil((double) mobLevel / 4);
+        int rarity = mobLevel % 4; // 1, 2, 3, 0
+        if (rarity == 1) {
+            if (ring == 1) { xpGain = 10; }
+            else { xpGain = 10 * (int) Math.pow(ring + 1, 2); }
+        } else if (rarity == 2) {
+            if (ring == 1) { xpGain = 20; }
+            else { xpGain = 20 * (int) Math.pow(ring + 1, 2); }
+        } else if (rarity == 3) {
+            if (ring == 1) { xpGain = 80; }
+            else { xpGain = 80 * (int) Math.pow(ring + 1, 2); }
+        } else if (rarity == 0 && mobLevel > 0) {
+            if (ring == 1) { xpGain = 160; }
+            else { xpGain = 160 * (int) Math.pow(ring + 1, 2); }
+        } else {
+            xpGain = 10 * (int) Math.pow(ring + 1, 2);
+        }
+
+        IPlayerStats cap = player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).orElse(null);
+        if (cap != null) {
+            long currentXP = cap.getMainXP();
+            if (cap.setMainXP(currentXP + xpGain)) {
+                int currentLevel = cap.getMainLevel();
+                ModifierUtil.setMainLevelStats(player, currentLevel);
+                player.displayClientMessage(new StringTextComponent("Main level is now " + currentLevel), true);
+            }
+        }
     }
 
     public static void increaseMeleeXP(PlayerEntity player, int minXP, int maxXP) {
@@ -143,47 +193,49 @@ public class XPUtil {
         return tier.get();
     }
 
-    public static void handleVisionUse(PlayerEntity player, String visionType) {
+    public static boolean increaseMeleeTier(PlayerEntity player, int targetTier) {
+        AtomicBoolean tierUp = new AtomicBoolean(false);
         player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).ifPresent(h -> {
-            if (visionType == Visions.FLAME) {
-                int currentXP = h.getMeleeXP();
-                int currentLevel = h.getMeleeLevel();
-                int currentTier = h.getMeleeTier();
-                int currentThreshold = h.nextLevelThreshold(currentLevel);
-                if (currentLevel >= 10 && currentTier < 3) {
-                    h.setMeleeLevel(currentLevel - 10);
-                    h.setMeleeTier(currentTier + 1);
-                } else {
-                    player.displayClientMessage(new StringTextComponent("Melee T" + currentTier + ", Level " + currentLevel + ": " + currentXP + " / " + currentThreshold), true);
-                }
-
-            } else if (visionType == Visions.GALE) {
-                int currentXP = h.getArcheryXP();
-                int currentLevel = h.getArcheryLevel();
-                int currentTier = h.getArcheryTier();
-                int currentThreshold = h.nextLevelThreshold(currentLevel);
-                if (currentLevel >= 10 && currentTier < 3) {
-                    h.setArcheryLevel(currentLevel - 10);
-                    h.setArcheryTier(currentTier + 1);
-                } else {
-                    player.displayClientMessage(new StringTextComponent("Archery Tier " + currentTier + ", Level " + currentLevel + ": " + currentXP + " / " + currentThreshold), true);
-                }
-
-            } else if (visionType == Visions.STAR) {
-//                int currentXP = h.getAlchemyXP();
-//                int currentLevel = h.getAlchemyLevel();
-//                int currentTier = h.getAlchemyTier();
-//                int currentThreshold = h.nextLevelThreshold(currentLevel);
-//                if (currentLevel >= 10 && currentTier < 3) {
-//                    h.setAlchemyLevel(currentLevel - 10);
-//                    h.setAlchemyTier(currentTier + 1);
-//                } else {
-//                    player.displayClientMessage(new StringTextComponent("Alchemy Tier " + currentTier + ", Level " + currentLevel + ": " + currentXP + " / " + currentThreshold), true);
-//                }
-                h.setAlchemyTier(3);
-                player.displayClientMessage(new StringTextComponent("Alchemy Tier " + h.getAlchemyTier()), true);
-            }
+            int currentTier = h.getMeleeTier();
+            if (currentTier >= targetTier || currentTier < targetTier - 1) { return; }
+            int currentLevel = h.getMeleeLevel();
+            if (currentLevel < 10) { return; }
+            h.setMeleeLevel(currentLevel - 10);
+            h.setMeleeTier(targetTier);
+            tierUp.set(true);
+            player.displayClientMessage(new TranslationTextComponent("vanillaspice.message.meleetierup", targetTier), true);
         });
+        return tierUp.get();
+    }
+
+    public static boolean increaseArcheryTier(PlayerEntity player, int targetTier) {
+        AtomicBoolean tierUp = new AtomicBoolean(false);
+        player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).ifPresent(h -> {
+            int currentTier = h.getArcheryTier();
+            if (currentTier >= targetTier || currentTier < targetTier - 1) { return; }
+            int currentLevel = h.getArcheryLevel();
+            if (currentLevel < 10) { return; }
+            h.setArcheryLevel(currentLevel - 10);
+            h.setArcheryTier(targetTier);
+            tierUp.set(true);
+            player.displayClientMessage(new TranslationTextComponent("vanillaspice.message.archerytierup", targetTier), true);
+        });
+        return tierUp.get();
+    }
+
+    public static boolean increaseAlchemyTier(PlayerEntity player, int targetTier) {
+        AtomicBoolean tierUp = new AtomicBoolean(false);
+        player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).ifPresent(h -> {
+            int currentTier = h.getAlchemyTier();
+            if (currentTier >= targetTier || currentTier < targetTier - 1) { return; }
+            int currentLevel = h.getAlchemyLevel();
+            if (currentLevel < 10) { return; }
+            h.setAlchemyLevel(currentLevel - 10);
+            h.setAlchemyTier(targetTier);
+            tierUp.set(true);
+            player.displayClientMessage(new TranslationTextComponent("vanillaspice.message.alchemytierup", targetTier), true);
+        });
+        return tierUp.get();
     }
 
 }

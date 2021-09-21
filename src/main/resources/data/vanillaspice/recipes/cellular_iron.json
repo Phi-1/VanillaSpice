@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "VVV",
+        "VIV",
+        "VVV"
+    ],
+    "key": {
+        "V": {
+            "item": "minecraft:vine"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        }
+    },
+    "result": {
+        "item": "vanillaspice:cellular_iron"
+    }
+}

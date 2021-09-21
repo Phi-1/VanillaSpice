@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SHS",
+    "BNB",
+    "SES"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:dragon_head"
+    },
+    "S": {
+      "item": "minecraft:shulker_shell"
+    },
+	"B": {
+      "item": "minecraft:dragon_breath"
+    },
+	"E": {
+      "item": "minecraft:experience_bottle"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "vanillaspice:vision_singularity"
+  }
+}

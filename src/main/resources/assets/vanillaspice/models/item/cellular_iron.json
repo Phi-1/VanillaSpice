@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "vanillaspice:item/flesh_ring"
+    "layer0": "vanillaspice:item/cellular_iron"
   }
 }
