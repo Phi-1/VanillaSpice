@@ -2,14 +2,16 @@ package dev.stormwatch.vanillaspice;
 
 import dev.stormwatch.vanillaspice.data.CapabilityMonsterLevel;
 import dev.stormwatch.vanillaspice.data.CapabilityPlayerStats;
+import dev.stormwatch.vanillaspice.events.onItemToolTipEvent;
 import dev.stormwatch.vanillaspice.recipes.ModPotionRecipe;
 import dev.stormwatch.vanillaspice.setup.ModItems;
 import dev.stormwatch.vanillaspice.setup.ModPotions;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potions;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -29,6 +31,7 @@ public class VanillaSpice
         RegistryHandler.register();
         MinecraftForge.EVENT_BUS.register(VSEventHandler.class);
         MinecraftForge.EVENT_BUS.register(this);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> this::registerClientEvents);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
     }
 
@@ -37,6 +40,10 @@ public class VanillaSpice
         CapabilityPlayerStats.register();
         CapabilityMonsterLevel.register();
         event.enqueueWork(this::registerBrewingRecipes);
+    }
+
+    private void registerClientEvents() {
+        MinecraftForge.EVENT_BUS.addListener(onItemToolTipEvent::event);
     }
 
     private void registerBrewingRecipes() {

@@ -51,8 +51,7 @@ public class VSEventHandler {
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) { onPlayerTickEvent.event(event); }
     @SubscribeEvent
     public static void onPlayerBrewPotionEvent(PlayerBrewedPotionEvent event) { onPlayerBrewPotionEvent.event(event); }
-    @SubscribeEvent
-    public static void onItemToolTipEvent(ItemTooltipEvent event) { onItemToolTipEvent.event(event); }
+    //checkpoint
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) { onLivingDeathEvent.event(event); }
     @SubscribeEvent
@@ -63,7 +62,7 @@ public class VSEventHandler {
         ItemStack stack = event.getItem();
         LivingEntity entity = event.getEntityLiving();
 
-        if (entity instanceof PlayerEntity && !entity.level.isClientSide()) {
+        if (!entity.level.isClientSide() && entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
 
             if (stack.getItem() instanceof PotionItem) {

@@ -19,7 +19,7 @@ public class MonsterLevelProvider implements ICapabilitySerializable<CompoundNBT
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return monsterLevelOptional.cast();
+        return CapabilityMonsterLevel.MONSTER_LEVEL_CAPABILITY.orEmpty(cap, monsterLevelOptional);
     }
 
     @Override

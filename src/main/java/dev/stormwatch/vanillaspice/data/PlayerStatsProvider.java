@@ -19,7 +19,7 @@ public class PlayerStatsProvider implements ICapabilitySerializable<CompoundNBT>
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return playerStatsOptional.cast();
+        return CapabilityPlayerStats.PLAYER_STATS_CAPABILITY.orEmpty(cap, playerStatsOptional);
     }
 
     @Override
