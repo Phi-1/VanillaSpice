@@ -61,7 +61,7 @@ public class onLivingHurtEvent {
                 XPUtil.increaseAlchemyXP(player, 8, 12);
                 finalDamage += finalDamage * ((float)XPUtil.getAlchemyLevel(player) / 50);
             } else {
-                XPUtil.increaseMeleeXP(player, 1, 5);
+                XPUtil.increaseMeleeXP(player, 1, 3);
                 finalDamage += finalDamage * ((float)XPUtil.getMeleeLevel(player) / 75);
 
                 if (XPUtil.getMeleeTier(player) >= 2) {

@@ -61,7 +61,7 @@ public class ModifierUtil {
     }
 
     public static void setPlayerBaseHealth(LivingEntity entity) {
-        setModifier(entity, Attributes.MAX_HEALTH, MODIFIER_ID_PLAYER_BASE_HEALTH, MODIFIER_NAME_PLAYER_BASE_HEALTH, -0.6, AttributeModifier.Operation.MULTIPLY_BASE);
+        setModifier(entity, Attributes.MAX_HEALTH, MODIFIER_ID_PLAYER_BASE_HEALTH, MODIFIER_NAME_PLAYER_BASE_HEALTH, -12, AttributeModifier.Operation.ADDITION);
     }
 
     public static void setMainLevelStats(LivingEntity entity, int playerLevel) {
