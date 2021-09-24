@@ -1,7 +1,6 @@
 package dev.stormwatch.vanillaspice.events;
 
 import dev.stormwatch.vanillaspice.data.CapabilityMonsterLevel;
-import dev.stormwatch.vanillaspice.data.CapabilityPlayerStats;
 import dev.stormwatch.vanillaspice.data.IMonsterLevel;
 import dev.stormwatch.vanillaspice.util.XPUtil;
 import net.minecraft.entity.Entity;
@@ -24,10 +23,10 @@ public class onLivingDeathEvent {
         // Player main xp
         else if (sourceEntity instanceof PlayerEntity && entity instanceof IMob && !entity.level.isClientSide()) {
             PlayerEntity player = (PlayerEntity) sourceEntity;
-            int mobLevel = 0;
+            long xpGain = 0;
             IMonsterLevel cap = entity.getCapability(CapabilityMonsterLevel.MONSTER_LEVEL_CAPABILITY).orElse(null);
-            if (cap != null) { mobLevel = cap.getLevel(); }
-            XPUtil.increaseMainXP(player, mobLevel);
+            if (cap != null) { xpGain = cap.getXPDrop(); }
+            XPUtil.increaseMainXP(player, xpGain);
         }
     }
 

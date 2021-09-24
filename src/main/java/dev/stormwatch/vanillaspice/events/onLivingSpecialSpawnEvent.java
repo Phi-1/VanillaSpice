@@ -3,6 +3,7 @@ package dev.stormwatch.vanillaspice.events;
 import dev.stormwatch.vanillaspice.data.CapabilityMonsterLevel;
 import dev.stormwatch.vanillaspice.util.MonsterStatsUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.monster.IMob;
@@ -33,6 +34,12 @@ public class onLivingSpecialSpawnEvent {
 
         if (entity instanceof IMob && !entity.level.isClientSide()) {
             RegistryKey<World> dimension = entity.level.dimension();
+
+            if (event.getSpawnReason() == SpawnReason.SPAWNER) {
+                entity.getCapability(CapabilityMonsterLevel.MONSTER_LEVEL_CAPABILITY).ifPresent(h -> {
+                    h.setXPScalesWithLevel(false);
+                });
+            }
 
             if (dimension == World.OVERWORLD) {
                 double x = event.getX();

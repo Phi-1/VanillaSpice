@@ -84,30 +84,11 @@ public class XPUtil {
         ModifierUtil.setMainLevelStats(player, playerLevel);
     }
 
-    public static void increaseMainXP(PlayerEntity player, int mobLevel) {
-        int xpGain = 0;
-        int ring = (int) Math.ceil((double) mobLevel / 4);
-        int rarity = mobLevel % 4; // 1, 2, 3, 0
-        if (rarity == 1) {
-            if (ring == 1) { xpGain = 10; }
-            else { xpGain = 10 * (int) Math.pow(ring + 1, 2); }
-        } else if (rarity == 2) {
-            if (ring == 1) { xpGain = 20; }
-            else { xpGain = 20 * (int) Math.pow(ring + 1, 2); }
-        } else if (rarity == 3) {
-            if (ring == 1) { xpGain = 80; }
-            else { xpGain = 80 * (int) Math.pow(ring + 1, 2); }
-        } else if (rarity == 0 && mobLevel > 0) {
-            if (ring == 1) { xpGain = 160; }
-            else { xpGain = 160 * (int) Math.pow(ring + 1, 2); }
-        } else {
-            xpGain = 10 * (int) Math.pow(ring + 1, 2);
-        }
-
+    public static void increaseMainXP(PlayerEntity player, long amount) {
         IPlayerStats cap = player.getCapability(CapabilityPlayerStats.PLAYER_STATS_CAPABILITY).orElse(null);
         if (cap != null) {
             long currentXP = cap.getMainXP();
-            if (cap.setMainXP(currentXP + xpGain)) {
+            if (cap.setMainXP(currentXP + amount)) {
                 int currentLevel = cap.getMainLevel();
                 ModifierUtil.setMainLevelStats(player, currentLevel);
                 player.displayClientMessage(new StringTextComponent("Main level is now " + currentLevel), true);
