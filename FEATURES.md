@@ -13,7 +13,7 @@ Duration of drunk potions is increased by base duration times alchemy level / 30
 
 ## Class tier effects
 ### Melee
-T1: Swiftness III and Leaping II for 2 seconds
+T1: Swiftness III and Leaping II for 2 seconds when taking damage
 
 T2: Regeneration I for 3 seconds and Resistance I for 2 seconds on hitting an enemy
 

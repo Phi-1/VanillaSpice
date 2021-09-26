@@ -4,6 +4,7 @@ import dev.stormwatch.vanillaspice.data.CapabilityMonsterLevel;
 import dev.stormwatch.vanillaspice.util.MonsterStatsUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.monster.IMob;
@@ -41,7 +42,11 @@ public class onLivingSpecialSpawnEvent {
                 });
             }
 
-            if (dimension == World.OVERWORLD) {
+            if (entity instanceof WitherEntity) {
+                // Wither gets stats according to levels 1-4, but gives xp congruent with level 20
+                entity.getCapability(CapabilityMonsterLevel.MONSTER_LEVEL_CAPABILITY).ifPresent(h -> { h.setLevel(20); });
+                MonsterStatsUtil.setMonsterStats(entity, getRandomLevel());
+            } else if (dimension == World.OVERWORLD) {
                 double x = event.getX();
                 double z = event.getZ();
                 int distanceFromZero = (int) Math.sqrt((Math.pow(x, 2) + Math.pow(z, 2)));
