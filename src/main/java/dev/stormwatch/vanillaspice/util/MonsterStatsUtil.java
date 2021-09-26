@@ -8,7 +8,7 @@ public class MonsterStatsUtil {
 
     private static final double[] hpPerLevel = new double[] { 1, 1.5, 1.8, 2,  2, 2.2, 2.5, 3,  3, 3.5, 4, 5,  5, 5, 5, 5 };
     private static final double[] atkPerLevel = new double[] { 1, 1.2, 1.5, 2,  2, 2.2, 3, 4,  4, 4.2, 4.5, 5,  5, 6, 8, 10 };
-    private static final double[] spdPerLevel = new double[] { 1, 1.2, 1.5, 2,  1.2, 1.5, 1.8, 2,  1.2, 1.5, 2, 3,  1.5, 3, 3, 3 };
+    private static final double[] spdPerLevel = new double[] { 1, 1.1, 1.2, 1.5,  1.1, 1.2, 1.4, 1.5,  1.2, 1.5, 1.8, 2,  1.5, 3, 3, 3 };
     private static final double[] rangePerLevel = new double[] { 1, 1.5, 3, 5,  3, 3.5, 5, 7,  5, 5.5, 6.5, 8,  10, 10, 10, 10 };
 
     public static void setMonsterStats(LivingEntity entity, int level) {
