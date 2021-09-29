@@ -1,16 +1,12 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-      "XXX",
-      "X X",
-      "   "
-    ],
-    "key": {
-      "X": {
-        "item": "vanillaspice:crystalline_guard"
-      }
-    },
-    "result": {
-      "item": "minecraft:diamond_helmet"
-    }
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:iron_helmet"
+  },
+  "addition": {
+    "item": "vanillaspice:crystalline_guard"
+  },
+  "result": {
+    "item": "minecraft:diamond_helmet"
   }
+}

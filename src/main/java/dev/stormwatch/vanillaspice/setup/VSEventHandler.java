@@ -16,7 +16,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.brewing.PlayerBrewedPotionEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,10 +38,7 @@ public class VSEventHandler {
     @SubscribeEvent
     public static void onPotionApplicableEvent(PotionEvent.PotionApplicableEvent event) { onPotionApplicableEvent.event(event); }
     @SubscribeEvent
-    public static void onLootingLevelEvent(LootingLevelEvent event) {
-        onLootingLevelEvent.event(event);
-        ResplendenceEffect.onLootingLevelEvent(event);
-    }
+    public static void onLootingLevelEvent(LootingLevelEvent event) { onLootingLevelEvent.event(event); }
     @SubscribeEvent
     public static void onPlayerCloneEvent(PlayerEvent.Clone event) { onPlayerCloneEvent.event(event); }
     @SubscribeEvent

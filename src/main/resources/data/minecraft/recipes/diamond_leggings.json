@@ -1,16 +1,12 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-      "XXX",
-      "X X",
-      "X X"
-    ],
-    "key": {
-      "X": {
-        "item": "vanillaspice:crystalline_guard"
-      }
-    },
-    "result": {
-      "item": "minecraft:diamond_leggings"
-    }
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:iron_leggings"
+  },
+  "addition": {
+    "item": "vanillaspice:crystalline_guard"
+  },
+  "result": {
+    "item": "minecraft:diamond_leggings"
   }
+}

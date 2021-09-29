@@ -10,10 +10,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CalmEffect extends Effect {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public CalmEffect() { super(EffectType.BENEFICIAL, 0x92cde0); }
 
