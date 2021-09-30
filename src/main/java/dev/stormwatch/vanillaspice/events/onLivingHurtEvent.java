@@ -1,6 +1,7 @@
 package dev.stormwatch.vanillaspice.events;
 
 import dev.stormwatch.vanillaspice.data.CapabilityMonsterLevel;
+import dev.stormwatch.vanillaspice.setup.ModEffects;
 import dev.stormwatch.vanillaspice.util.ModifierUtil;
 import dev.stormwatch.vanillaspice.util.XPUtil;
 import net.minecraft.entity.Entity;
@@ -83,6 +84,7 @@ public class onLivingHurtEvent {
                 player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 40, 2));
                 // Jump boost 2 makes jump height 2 1/2 blocks, with alchemy amp bonus this would be 3 blocks
                 player.addEffect(new EffectInstance(Effects.JUMP, 40, 1));
+                player.addEffect(new EffectInstance(ModEffects.SHEER_FORCE.get(), 40, 0));
 
                 if (meleeTier >= 3) {
                     if ((player.getHealth() - finalDamage) <= 0 && ThreadLocalRandom.current().nextDouble() <= 0.5) {

@@ -3,6 +3,7 @@ package dev.stormwatch.vanillaspice.setup;
 import dev.stormwatch.vanillaspice.data.*;
 import dev.stormwatch.vanillaspice.effects.CalmEffect;
 import dev.stormwatch.vanillaspice.effects.ResplendenceEffect;
+import dev.stormwatch.vanillaspice.effects.SheerForceEffect;
 import dev.stormwatch.vanillaspice.events.*;
 import dev.stormwatch.vanillaspice.util.XPUtil;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.brewing.PlayerBrewedPotionEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,6 +37,8 @@ public class VSEventHandler {
         onLivingHurtEvent.event(event);
         CalmEffect.onLivingEntityHurtEvent(event); // this one last
     }
+    @SubscribeEvent
+    public static void onCriticalHitEvent(CriticalHitEvent event) { SheerForceEffect.onCriticalHitEvent(event); }
     @SubscribeEvent
     public static void onPotionApplicableEvent(PotionEvent.PotionApplicableEvent event) { onPotionApplicableEvent.event(event); }
     @SubscribeEvent

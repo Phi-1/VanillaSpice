@@ -22,6 +22,7 @@ public class ModEffects {
             "calm", () -> new CalmEffect());
     public static final RegistryObject<Effect> RESPLENDENCE = RegistryHandler.EFFECTS.register(
             "resplendence", () -> new ResplendenceEffect().addAttributeModifier(Attributes.LUCK, ModifierUtil.MODIFIER_ID_LUCK.toString(), 3.0, AttributeModifier.Operation.ADDITION));
+    public static final RegistryObject<Effect> SHEER_FORCE = RegistryHandler.EFFECTS.register("sheer_force", () -> new SheerForceEffect());
 
 
     public static void register() {}
